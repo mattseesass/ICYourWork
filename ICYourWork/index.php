@@ -1,100 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ICYourWork</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
-</head>
-<body>
-	<div id="header-div">
-	</div>
+<?php
+  session_start();
+?>
 
-	<div id="main-wrap">
-		<article>
-			<div class="article-profile">
-				<div class="company-picture">
-					<img src="core/img/profile.png">
-				</div>
-				<div class="user-profile">
-					<div class="work-picture">
-						<img src="core/img/profile.png">
-					</div>
-					<div class="profile-username">
-						<span>Testuser123</span>
-					</div>
-				</div>
-			</div>
-			<div class="article-title">
-				<div class="company-slogan">
-					<span>company slogan test<span>
-				</div>
-					<span class="company-name">Company name<span>
-			</div>
-			<div class="article-picture">
-				<img src="">
-			</div>
-			<div class="article-widgets">
-				<div class="acrticle-likes">
-					5665 Likes
-				</div>
-				<div class="acrticle-comments">
-					147 Comments
-				</div>
-				<div class="acrticle-reviews">
-					12 Reviews
-				</div>	
-			</div>
-			<div class="article-social">
-				<div class="btn-share" id="facebook"><i class="fa fa-facebook"></i>Facebook</div>
-				<div class="btn-share" id="twitter"><i class="fa fa-twitter"></i>Twitter</div>
-				<div class="btn-share" id="google"><i class="fa fa-google"></i>Google +</div>
-			</div>	
-		</article>
-		<article>
-			<div class="article-profile">
-				<div class="company-picture">
-					<img src="core/img/profile.png">
-				</div>
-				<div class="user-profile">
-					<div class="work-picture">
-						<img src="core/img/profile.png">
-					</div>
-					<div class="profile-username">
-						<span>Testuser123</span>
-					</div>
-				</div>
-			</div>
-			<div class="article-title">
-				<div class="company-slogan">
-					<span>company slogan test<span>
-				</div>
-					<span class="company-name">Company name<span>
-			</div>
-			<div class="article-picture">
-				<img src="">
-			</div>
-			<div class="article-widgets">
-				<div class="acrticle-likes">
-					5665 Likes
-				</div>
-				<div class="acrticle-comments">
-					147 Comments
-				</div>
-				<div class="acrticle-reviews">
-					12 Reviews
-				</div>	
-			</div>
-			<div class="article-social">
-				<div class="btn-vote"><i class="fa fa-arrow-circle-up"></i></div>
-				<div class="btn-vote"><i class="fa fa-comments"></i></div>
-				<div class="btn-share" id="facebook"><i class="fa fa-facebook"></i>Facebook</div>
-				<div class="btn-share" id="twitter"><i class="fa fa-twitter"></i>Twitter</div>
-				<div class="btn-share" id="google"><i class="fa fa-google"></i>Google +</div>
-			</div>	
-		</article>
-	</div>
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>ICYourWork.com</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <header class="site-header">
+    <div id="header">
+      <a class="logo" href="#0">ICYourWork</a>
+      <nav class="site-nav">
+      <!-- <ul>
+          <li class="active"><a href="#0">Home</a></li>
+          <li><a href="#0">Portfolio</a></li>
+          <li><a href="#0">contact</a></li>
+        </ul> -->
+      </nav>
+      
+      <div class="account__dropdown">
+        <form action="login.php" method="POST">
+          <div class="form__space">
+            <input type="email" name="email" placeholder="E-mailadres">
+            <input type="password" name="password" placeholder="Wachtwoord">
+            <button class="btn__login" type="submit">Aanmelden</button>
+            <div class="forget__pw">Wachtwoord vergeten?</div>
+          </div>
+        </form>
+
+        <?php
+          if (isset($_SESSION['id'])) {
+              echo $_SESSION['id'];
+          } else {
+              echo "You are not logged in!";
+          }
+        ?>
+
+      </div>
+    </div>
+</header>
+
+<div class="main-div">
+  <?php
+    include 'form.php';
+  ?>
+</div>
+
+<footer class="page__footer">
+  <div class="footer">
+    ICYOURWORK © 2017
+  </div>
+</footer>
+  
 </body>
 </html>
