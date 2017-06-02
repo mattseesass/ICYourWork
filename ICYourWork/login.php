@@ -37,13 +37,19 @@
       <div class="container well">
           <div class="alert-message">
             <?php
+              if (isset($_SESSION['registered'])) {
+                echo "<div class='alert alert-success fade in'>".$_SESSION['registered']."</div>";
+                unset($_SESSION['registered']);
+              }
+            ?>
+            <?php
               if (isset($_SESSION['message'])) {
-                echo "<div class='alert alert-success fade in'>".$_SESSION['message']."</div>";
+                echo "<div class='alert alert-danger fade in'>".$_SESSION['message']."</div>";
                 unset($_SESSION['message']);
               }
             ?>
           </div>
-        <form id="register-form" action="core/functions/signup.func.php" method="POST">
+        <form id="register-form" action="core/functions/login.func.php" method="POST">
           <fieldset><legend>Login</legend></fieldset>
             <p>Welcome 
             <?php
@@ -54,13 +60,15 @@
             </p>
             <div class="row">
               <div class="form-group col-md-12">
-                <input class="form-control" type="text" name="email" placeholder="Email address ">
+                <input class="form-control" type="text" name="email" placeholder="Email address " value="<?php if (isset($_SESSION['email'])) {
+                  echo $_SESSION['email'];
+                } ?>">
               </div>
               <div class="form-group col-md-12">
                 <input class="form-control" type="password" name="lpassword" id="password" placeholder="Password">
               </div>
               <div class="form-group col-md-12">
-                  <input class="btn btn-primary btn-block" id="submit-button" name="register_btn" type="submit" value="Sign In">
+                  <input class="btn btn-primary btn-block" id="submit-button" name="login_btn" type="submit" value="Sign In">
               </div>
               <div class="form-group col-md-12">
                 <div class="password-forget">
