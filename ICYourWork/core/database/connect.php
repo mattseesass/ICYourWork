@@ -4,10 +4,10 @@
 * Database Class
 */
 
-$servername = "localhost"; // Servername
-$username = "root"; // Username
-$password = "usbw"; // Password
-$db = "icyourwork"; // Selected Database
+$servername = "localhost";
+$username = "root";
+$password = "usbw";
+$db = "icyourwork";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $db);
