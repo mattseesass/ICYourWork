@@ -1,8 +1,8 @@
 <?php
 
-include '../includes/sessionstart.inc.php'; // starts the session
+include '../includes/sessionstart.inc.php'; // Starts the session
 
-include '../database/connect.php'; // connection with the database
+include '../database/connect.php'; // Connection with the database
 
 	if (isset($_POST['login_btn'])) {
 		$email = mysql_real_escape_string($_POST['email']);
@@ -13,19 +13,19 @@ include '../database/connect.php'; // connection with the database
 		$result = mysqli_query($conn, $sql);
 		
 		if (!$row = $result->fetch_assoc()) {
-			$_SESSION['message'] = "Your username or password is incorrect";
+			$_SESSION['denied'] = "Your email or password is incorrect";
 			header("location: ../../login.php");
 		}
 		else
 		{
-			$_SESSION['name'] = $row['voornaam']." ".$row['achternaam'];
-			$_SESSION['id'] = $row['achternaam'];
+			$_SESSION['name'] = $row['user_firstname']." ".$row['user_lastname'];
+			$_SESSION['id'] = $row['user_id'];
 			$_SESSION['timestamp'] = $row['join-date'];
-			$_SESSION['message'] = "You are now logged in";
+			$_SESSION['succes'] = "You are now logged in";
 			$_SESSION['email'] = $email;
 			$_SESSION['voornaam'] = $voornaam;		
 			$_SESSION['achternaam'] =  $achternaam;
-			header("location: ../../entry.php");
+			header("location: ../../vacancy.php");
 		}
 	}
 

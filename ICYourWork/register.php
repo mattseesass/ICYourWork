@@ -1,90 +1,102 @@
 <?php
-  // This wil start the session  
   include 'core/includes/sessionstart.inc.php';
+
+  if (isset($_GET['id'])) {
+    $_SESSION["role"] = $_GET["id"];
+  }else {
+    header('Location: index.php');
+    $_SESSION['notset'] = 'Join as an Applicant or Employee';
+  }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html >
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
     <meta name="description" content="Login - ICYourWork">
     <meta name="author" content="Robin Vriens, Joey van de Looverbosch, Remco van der Linden">
     <link rel="icon" href="favicon.ico">
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dropdown.css">
 
-    <title>Login - ICYourWork</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Bootstrap core css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.min.css">
 
-    <!-- link to custom stylesheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <script src="core/js/jquery-3.2.1.min.js"></script>
 
-  </head>
+</head>
 
-  <body>
+<body>
+  <div class="site"> 
 
-  <?php
-    // Include of the header  
-    include 'core/includes/header.inc.php';
-  ?>
-
-    <!-- Begin page content -->
-    <div class="container">
-      <div class="container well">
-        <form id="register-form" action="core/functions/signup.func.php" method="POST">
-          <fieldset><legend>Register</legend></fieldset>
-            <p>Create your account for free!</p>
-            <div class="row">
-              <div class="form-group col-md-12">
-                <input class="form-control" type="text" name="firstname" placeholder="Firstname">
-              </div>
-              <div class="form-group col-md-12">
-                <input class="form-control" type="text" name="lastname" placeholder="Lastname">
-              </div>
-              <div class="form-group col-md-12">
-                <input class="form-control" type="text" name="email" placeholder="Email address ">
-              </div>
-              <div class="form-group col-md-12">
-                <input class="form-control" type="password" name="password" id="password" placeholder="Password">
-              </div>
-              <div class="form-group col-md-12">
-                <input class="form-control" type="password" name="cpassword" placeholder="Confirm Password">
-              </div>
-              <div class="form-group col-md-12">
-                    <div class="terms">
-                      <label class="site-term"> 
-                  By clicking Sign up, you agree to ICYourWork's User Agreement, Privacy Policy, and Cookie Policy.
-                      </label>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <input class="btn btn-primary btn-block" id="submit-button" name="register_btn" type="submit" value="Sign Up">
-                  </div>
-                  <div class="form-group col-md-12" id="if-signed-in">
-                    <span>Already signed up? sign in <a href="login.php">here</a></span>
-                  </div>
-                </div>
-        </form>
+  <main class="site-main">
+    <div id="register-page">
+      <div class="register-user">
+        <span class="already">Register your free account now !</span>
+        <div class="register-form">
+          <form id="form-register" action="core/functions/signup.func.php" method="POST">
+            <?php
+              if (isset($_SESSION['denied'])) {
+                echo "<div class='alert-message'>".$_SESSION['denied']."</div>";
+                unset($_SESSION['denied']);
+              }
+            ?>
+            <div class="sign-in">
+              <span class="sign-title">Register</span>
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+            <div class="form-group">
+              <span class="form-icons"><i class="fa fa-user-o" aria-hidden="true"></i></span> 
+              <input type="text" name="firstname" placeholder="Firstname">
+            </div>
+            <div class="form-group">
+              <span class="form-icons"><i class="fa fa-user-o" aria-hidden="true"></i></span> 
+              <input type="text" name="lastname" placeholder="Lastname">
+            </div>
+            <div class="form-group">
+              <span class="form-icons"><i class="fa fa-envelope-o" aria-hidden="true"></i></span> 
+              <input type="text" name="email" placeholder="Email address">
+            </div>
+            <div class="form-group">
+              <span class="form-icons"><i class="fa fa-lock" aria-hidden="true"></i></span>
+              <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <span class="form-icons"><i class="fa fa-lock" aria-hidden="true"></i></span>
+              <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password">
+            </div>
+            <span class="user-agree">By clicking Sign up, you agree to ICYourWork's User Agreement, Privacy Policy, and Cookie Policy.
+            </span>
+            <div class="signin">
+              <input id="submit-button" name="register_btn" type="submit" value="Sign Up">
+            </div>
+          </form>
+        </div>
+        <span class="already-acc">Already have an account ? <a href="login.php">click here to login !</a></span>
       </div>
     </div>
+  </main>
 
-    <!-- JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <?php  
+      include 'core/includes/footer.inc.php';
+    ?>
 
-    <!-- Latest compiled and minified bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</div>
+  
+  
+</body>
 
-    <!-- JQuery and Ajax scripts -->
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
+  <!-- JQuery and Ajax scripts -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
 
-    <!-- Validation script -->
-    <script src="core/js/validation.js"></script>
+ <script src="core/js/validation.js"></script>
 
-  </body>
 </html>

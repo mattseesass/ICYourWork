@@ -1,0 +1,32 @@
+function f() {
+  document.getElementsByClassName('dropdown')[0].classList.toggle('down');
+  document.getElementsByClassName('arrow')[0].classList.toggle('gone');
+  if (document.getElementsByClassName('dropdown')[0].classList.contains('down')) {
+    setTimeout(function() {
+      document.getElementsByClassName('dropdown')[0].style.overflow = 'visible'
+    }, 100)
+  } else {
+    document.getElementsByClassName('dropdown')[0].style.overflow = 'hidden'
+  }
+}
+
+$(document).ready(function() {
+	$(".nav-block").click(function() {
+		$(".nav-block.active").removeClass("active");
+		$(this).addClass("active");
+	});
+});
+
+$(document).ready(function() {
+	$(".nav-setting").click(function() {
+		$(".nav-setting.active").removeClass("active");
+		$(this).addClass("active");
+	});
+});
+
+$(document).ready(function() {
+  $(".block").click(function() {
+    $(".block.block-active").removeClass("block-active");
+    $(this).addClass("block-active");
+  });
+});
