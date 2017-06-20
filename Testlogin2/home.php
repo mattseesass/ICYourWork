@@ -23,7 +23,7 @@ if (isset($_SESSION['message'])) {
 		echo "<div>".$_SESSION['message']."</div>";
 		unset($_SESSION['message']);
 	} ?>
-<a href="vacature.php">Go to vacature page</a>
+<a href="vacature.php">Go to vacancies page</a>
 Want to see users? <a href="profiles.php">click here!!</a>
 <br>
 <br>
@@ -199,6 +199,14 @@ if (isset($_SESSION['Name']))
 			<tr>
 			<td><input type="text" name="requirement" placeholder="Requirements"></td>
 			</tr>
+			<select name="sel">
+			<label>Select preferred category </label>
+			<option value="0">select a category -</option>
+		<option value="1">Healthcare</option>
+		<option value="2">Economy</option>
+		<option value="3">Green</option>
+		<option value="4">Technology</option>
+			</select>
 			<br>
 			<tr>
 				<input type="submit" name="btn_submit">
@@ -302,7 +310,7 @@ $sql = "SELECT * FROM applicants WHERE uid='".$_SESSION['uid']."'";
 $result = mysqli_query($conn, $sql);
 ?>
 <div>
-<strong>Applicants on your vacatures</strong>
+<strong>Applicants on your vacancies</strong>
 <br>
 <?php
 if (mysqli_num_rows($result) > 0) {

@@ -5,21 +5,69 @@ require "inc/dbh.inc.php";
 
 
 <a href="Home.php">Go to homepage</a>
-
+<form method="POST">
+	<select name="sel">
+		<option value="1">Select from latest to first</option>
+		<option value="2">Select from First to lastest</option>
+		<option value="3">Show vacancies only for Healthcare</option>
+		<option value="4">Show vacancies only for Economy</option>
+		<option value="5">Show vacancies only for Green</option>
+		<option value="6">Show vacancies only for Technology</option>
+	</select>
+	<input type="submit" name="btn_search">
+</form>
 <?php
+
 if (isset($_SESSION['message'])) {
 	echo $_SESSION['message'];
 }
 if (isset($_SESSION['uid'])) {
 	echo "<a href='inc/logout.inc.php'>logout </a>";
-$sql = "SELECT * FROM vacatures WHERE uid != '".$_SESSION['uid']."'  ORDER BY id DESC";
-$result = mysqli_query($conn, $sql);
-foreach ($result as $key => $row) { 
-	$vid = $row['id'];
+	if (isset($_POST['btn_search'])) {
+				$value = $_POST['sel'];
+	switch ($value) {
+		case 1:
+			$sql = "SELECT * FROM vacatures WHERE uid != '".$_SESSION['uid']."'  ORDER BY id DESC";	
+			break;
+		case 2:
+			$sql = "SELECT * FROM vacatures WHERE uid != '".$_SESSION['uid']."' ORDER BY id ASC";
+			break;
+		case 3;
+			$sql = "SELECT * FROM vacatures WHERE Category=1 ORDER BY uid DESC";
+		break;	
+		case 4:
+			$sql = "SELECT * FROM vacatures WHERE Category=2 ORDER BY uid DESC";
+		break;
+		case 5:
+			$sql = "SELECT * FROM vacatures WHERE Category=3 ORDER BY uid DESC";
+		break;
+		case 6:
+			$sql = "SELECT * FROM vacatures WHERE Category=4 ORDER BY uid DESC";
+		break;
+	}
+	}
+	else
+	{
+	$sql = "SELECT * FROM vacatures WHERE uid != '".$_SESSION['uid']."'  ORDER BY id DESC";		
+	}
+	$result = mysqli_query($conn, $sql);
+	if (!$row = mysqli_num_rows($result) > 0) {
+		echo "No vacancies found";
+	}
+	else 
+	{
+	foreach ($result as $key => $row){		
+		$vid = $row['id'];
+		$cat = $row['Category'];
+
 	?>
 <div>
-
+<?php
+?>
 <h1><?php echo $row['Name']; ?></h1>
+<?php
+
+		?>
 <img src="Uploads/<?php echo $row['picture']; ?>">
 <p><b>Comment: </b><?php echo $row['Comment']; ?></p>
 <small><b>Requirement: </b><?php echo $row['Requirement']?></small>
@@ -42,6 +90,7 @@ $sql = "SELECT * FROM profileimg WHERE userid='$id' AND status=0";
 		}
 		else 
 		{
+
 			$sql = "SELECT * FROM gebruiker WHERE id='$id'";
 			$result = mysqli_query($conn, $sql);
 			$row = mysqli_fetch_assoc($result);
@@ -60,10 +109,35 @@ $sql = "SELECT * FROM profileimg WHERE userid='$id' AND status=0";
 			<input type='hidden' name='vid' value='".$vid."'>
 			</form></div>";
 		}
-	} 	
+	} 
+	}	
 }
 else{
-	$sql = "SELECT * FROM vacatures ORDER BY id DESC";
+	if (isset($_POST['btn_search'])) {
+		$value = $_POST['sel'];
+switch ($value) {
+		case 1:
+			$sql = "SELECT * FROM vacatures ORDER BY id DESC";	
+			break;
+		case 2:
+			$sql = "SELECT * FROM vacatures ORDER BY id ASC";
+			break;
+		case 3;
+			$sql = "SELECT * FROM vacatures WHERE Category=1 ORDER BY uid DESC";
+		break;	
+		case 4:
+			$sql = "SELECT * FROM vacatures WHERE Category=2 ORDER BY uid DESC";
+		break;
+		case 5:
+			$sql = "SELECT * FROM vacatures WHERE Category=3 ORDER BY uid DESC";
+		break;
+		case 6:
+			$sql = "SELECT * FROM vacatures WHERE Category=4 ORDER BY uid DESC";
+		break;
+	}
+}else
+	$sql = "SELECT * FROM vacatures WHERE uid != '".$_SESSION['uid']."'  ORDER BY id DESC";	
+}
 	$result = mysqli_query($conn, $sql);
 	foreach ($result as $key => $row) {
 		?>
@@ -73,7 +147,7 @@ else{
 <p><b>Comment: </b><?php echo $row['Comment']; ?></p>
 <small><b>Requirement: </b><?php echo $row['Requirement']?></small>
 <br>
-<p><a href="home.php">login here</a> to apply on this vacatures</p>
+<p><a href="home.php">login here</a> to apply on this vacancies</p>
 </div>
 <?php
 $id = $row['uid'];
@@ -109,12 +183,11 @@ $sql = "SELECT * FROM profileimg WHERE userid='$id' AND status=0";
 			
 		}
 	}
-}
 	?>
 
 	<?php
 	if (isset($_SESSION['uid'])) {	?>
-		<h1>These are your vacatures</h1>
+		<h1>These are your vacancies</h1>
 		<?php
 $sql = "SELECT * FROM vacatures WHERE uid='".$_SESSION['uid']."' ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
@@ -146,6 +219,7 @@ $sql = "SELECT * FROM profileimg WHERE userid='".$_SESSION['uid']."' AND status=
 			$sql = "SELECT * FROM vacatures WHERE uid='".$_SESSION['uid']."' ";
 			$result = mysqli_query($conn, $sql);
 			$row = mysqli_fetch_assoc($result);
+			$cat = $row['Category'];
 				echo "<br>";
 				echo "Posted by: "."You";
 				echo "<br>";
@@ -156,6 +230,7 @@ $sql = "SELECT * FROM profileimg WHERE userid='".$_SESSION['uid']."' AND status=
 					<input type='hidden' name='vid' value='".$row['id']."'>
 					<input type='hidden' name='uid' value='".$row['uid']."'>
 					</form>";
+
 			}
 }
 }
