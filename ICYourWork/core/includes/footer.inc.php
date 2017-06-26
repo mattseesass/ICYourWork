@@ -20,6 +20,8 @@
 	<div class="footer-tab">
 		<span class="footer-title">Get in touch</span>
 		<span class="footer-subtitle">On social media</span>
+		<span class="footer-subtitle"><a href="vacature.php">Vacatures</a></span>
+		<span class="footer-subtitle"><a href="profiles.php">Profile Page</a></span>
 		<div class="footer-links">
 			<div class="footer-social">
 				<a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>

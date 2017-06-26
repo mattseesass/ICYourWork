@@ -1,51 +1,24 @@
-$(function login() {
-
-	$.validator.setDefaults({
-		errorClass: 'help-block',
-		highlight: function(element) { // If a field is valid it will return a error 
-			$(element)
-				.addClass('has-error');
-		},
-		unhighlight: function login(element) { // This will unhighlight the errors
-			$(element)
-				.removeClass('has-error');
-		}
-	})
-
-	$("#form-login").validate({
-		rules: {
-			email: {
-				required: true, // Field is required
-				email: true // Needs to be an email type
-			},
-		    lpassword: {
-		        required: true, // Field is required
-		    }
-		},
-		messages: {
-			email: {
-				required: '<i class="fa fa-times" aria-hidden="true"></i>',
-				email: '<i class="fa fa-times" aria-hidden="true"></i>'
-			},
-			lpassword: {
-				required: '<i class="fa fa-times" aria-hidden="true"></i>'
-			}
-		}
-	});
-});
-
-$(function register() {
+$(function() {
 
 	$.validator.setDefaults({
 		errorClass: 'help-block',
 		highlight: function(element) { // If a field is valid it will return a error 
 			$(element)
 				.closest('.form-group')
+				.addClass('has-error');
 		},
 		unhighlight: function(element) { // This will unhighlight the errors
 			$(element)
 				.closest('.form-group')
-		}
+				.removeClass('has-error');
+		}//
+	 //    errorPlacement: function (error, element) {
+	 //      if (element.prop('type') === 'checkbox') {
+	 //        error.insertAfter(element.parent());
+	 //      } else {
+	 //        error.insertAfter(element);
+	 //      }
+	 //    }
 	})
 
 	// Password validation
@@ -56,7 +29,7 @@ $(function register() {
       && /[a-z]/i.test(value);
   	}, 'Your password must be at least 6 characters long and contain at least one number and one char\'.')
 
-	$("#form-register").validate({
+	$("#register-form").validate({
 		rules: {
 			email: {
 				required: true, // Field is required
@@ -70,6 +43,9 @@ $(function register() {
 		        required: true, // Field is required
 		        equalTo: '#password' // Confirm password needs to be equal with first password
 		    },
+		    lpassword: {
+		        required: true, // Field is required
+		    },
 		    firstname: {
 		        required: true, // Field is required
 		        nowhitespace: true, // Cant use white space in field
@@ -82,25 +58,8 @@ $(function register() {
 		},
 		messages: {
 			email: {
-				required: '<i class="fa fa-times" aria-hidden="true"></i>',
-				email: '<i class="fa fa-times" aria-hidden="true"></i>'
-			},
-			password: {
-				required: '<i class="fa fa-times" aria-hidden="true"></i>',
-				strongPassword: '<i class="fa fa-times" aria-hidden="true"></i>'
-			},
-			cpassword: {
-				required: '<i class="fa fa-times" aria-hidden="true"></i>',
-				equalTo: '<i class="fa fa-times" aria-hidden="true"></i>'
-			},
-			firstname: {
-				required: '<i class="fa fa-times" aria-hidden="true"></i>',
-				nowhitespace: '<i class="fa fa-times" aria-hidden="true"></i>',
-				lettersonly: '<i class="fa fa-times" aria-hidden="true"></i>'
-			},
-			lastname: {
-				required: '<i class="fa fa-times" aria-hidden="true"></i>',
-				lettersonly: '<i class="fa fa-times" aria-hidden="true"></i>'
+				required: 'Please enter an email address',
+				email: 'Please enter a <em>valid</em> email adress'
 			}
 		}
 	});

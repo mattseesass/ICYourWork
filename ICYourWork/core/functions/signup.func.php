@@ -3,17 +3,32 @@
 require '../includes/sessionstart.inc.php'; // Starts the session
 
 require '../database/connect.php'; // Connection with the database
-
 	if (isset($_POST['register_btn'])) { 
-		$firstname = mysql_real_escape_string($_POST['firstname']);
-		$lastname = mysql_real_escape_string($_POST['lastname']);
-		$email = mysql_real_escape_string($_POST['email']);
-		$password = mysql_real_escape_string($_POST['password']);
-		$cpassword = mysql_real_escape_string($_POST['cpassword']);
+		$first = $_POST['first'];
+		$last = $_POST['last'];
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$password2 = $_POST['password2'];
+if (empty($first)) {
+	header("Location: ../../index.php");exit();
+}
+if (empty($last)) {
+	header("Location: ../../index.php");exit();
+}
+if (empty($email)) {
+		header("Location: ../../index.php");exit();
+}
+if (empty($password)) {
+	header("Location: ../../index.php");exit();
 
+}
+if (empty($password2)) {
+header("Location: ../../index.php");exit();
+}
+else{
 		if (isset($_POST['email'])) 
 		{
-			$sql = "SELECT * FROM users WHERE user_email ='$email'";
+			$sql = "SELECT * FROM gebruiker WHERE email ='$email'";
 			$result = mysqli_query($conn, $sql);
 			if (mysqli_num_rows($result) > 0)
 			{
@@ -22,27 +37,41 @@ require '../database/connect.php'; // Connection with the database
 			}
 			else
 			{
-				if ($password == $cpassword) 
+				if ($password == $password2) 
 				{
 					$password = md5($password);
-					$sql = "INSERT INTO users(user_firstname, user_lastname, user_email, user_password) VALUES('$firstname','$lastname', '$email', '$password')"; 
+					$sql = "INSERT INTO gebruiker(voornaam, achternaam, email, password, Accountid) VALUES('$first','$last', '$email', '$password','".$_SESSION['role']."')"; 
 					mysqli_query($conn, $sql);		
 
 					$_SESSION['succes'] = "<strong>Success!</strong> Your <em>Account</em> has been created!.";
 					$_SESSION['name'] = $firstname." ".$lastname;
 
-					$idsql =  "SELECT * FROM users WHERE user_email='$email' AND user_password='$password'";
+					$idsql =  "SELECT * FROM gebruiker WHERE email='$email' AND password='$password'";
 					$result = mysqli_query($conn, $idsql);
 					$row = mysqli_fetch_assoc($result);
 					
 					$id = $row['user_id'];
-					$sql = "UPDATE users SET work_id = '".$_SESSION['role']."' WHERE user_id='$id'";
+					$sql = "UPDATE users SET Accountid = '".$_SESSION['role']."' WHERE id='$id'";
 						mysqli_query($conn, $sql);
 					echo $row['work_id'];
-
+					$sql = "SELECT * FROM gebruiker WHERE email='$email' AND password='$password'";
+					$result = mysqli_query($conn,$sql);
+					$row = mysqli_fetch_assoc($result);
+					$userid = $row['id'];
+					$sql = "INSERT INTO profileimg(userid, status) VALUES('$userid', 1)";
+					mysqli_query($conn, $sql);
+					$_SESSION['uid'] = $row['id'];
+					$_SESSION['name'] = $row['voornaam']." ".$row['achternaam'];
+					$_SESSION['join'] = $row['join-date'];
+					$_SESSION['admin'] = $row['voornaam'];
+					$_SESSION['level'] = $row['Accountid'];
+					$_SESSION['uid'] = $row['id'];
+					$_SESSION['email'] = $email;
+					$_SESSION['first'] = $row['voornaam'];
+					$_SESSION['last'] = $row['achternaam'];	
 					header("Location: ../../profile.php");
 				}
 			}
 		}
-
-	}
+}
+}

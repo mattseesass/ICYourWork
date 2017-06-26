@@ -1,0 +1,162 @@
+body {
+  background-color: #252525;
+  font-family: arial;
+}
+.vacature
+{
+	background-color: #443a3a;
+	color: white;
+	position: flex;
+    margin : 0 auto;
+    display: flex;	
+    justify-content: center;	
+    align-content: 	center;	
+    width: 500px; 
+    align-items: center;
+    margin-top: 20px;
+    }
+.vat
+{
+	background-color: #443a3a;
+	color: white;
+	position: flex;
+    margin : 0 auto;
+    display: flex;	
+    justify-content: center;	
+    align-content: 	center;	
+    flex-direction: column;
+    width: 300px; 
+    height: 250px;
+    margin-top: 20px;
+    }
+.vacature:hover
+{
+  opacity: 0.8;
+}
+.user
+{
+    	background-color: #443a3a;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 400px;
+    height: 200px;
+    color: white;
+margin-top: 20px;
+}
+
+.btn_apply {
+  width: 125px;
+  text-align: center;
+  background-color: black;
+  border: 0px;
+  padding: 20px;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 1.0;
+  transition: 0.5s;
+  letter-spacing: 1px;
+}
+
+.btn_delete
+{
+	width: 125px;
+  text-align: center;
+  background-color: black;
+  border: 0px;
+  padding: 20px;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 1.0;
+  transition: 0.5s;
+  letter-spacing: 1px;
+}
+.error
+{
+   margin: 0 auto;
+    display: flex;  
+    justify-content:center;  
+    align-content: center; 
+    align-items: center;
+    color: red;
+    margin-top: 14vh;
+        font-size: 60px;
+    flex-direction: column;
+}
+.btn_delete:hover
+{
+	transition: 0.4s;
+  	opacity: 0.5;
+  	background-color: red;
+}
+.btn_apply:hover {
+  transition: 0.5s;
+  opacity: 0.5;
+  background-color: #33d133;
+    color: #070606;
+}
+.sel
+{
+	width: 250px;
+	font-size: 15px;
+	background-color: #252525;
+	border: 1px solid ;
+	color: white;
+	}
+.h1
+{
+	margin : 0 auto;
+    display: flex;	
+    justify-content: center;	
+    align-content: 	center;	
+    width: 500px; 
+    align-items: center;
+    color: #efcfc4;
+}
+.search
+{
+    margin: 0 auto;
+    display: flex;  
+    justify-content:center;  
+    align-content: center; 
+    align-items: center;
+    color: #efcfc4;
+    flex-direction: column;
+}
+.search a
+{
+  background-color: #252525;
+  border: 1px solid ;
+  color: white;
+  width: 150px; 
+  text-decoration: none;
+  text-align: center;
+}
+.query_btn
+{
+  background-color: black;
+  color: white;
+  width: 100px;
+  height: 28px;
+  font-size: 15px;
+}
+.logout
+{
+  background-color: #252525;
+  width: 50px;
+  display: flex;
+  align-content: center;
+  margin: 0 auto;
+}
+.logout a
+{
+  color: white;
+  text-decoration: none;
+  border: solid 1px white;
+}

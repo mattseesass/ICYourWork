@@ -3,10 +3,6 @@
 
   if (isset($_GET['id'])) {
     $_SESSION["role"] = $_GET["id"];
-  }else {
-    header('Location: index.php');
-    $_SESSION['notset'] = 'Join as an Applicant or Employee';
-  }
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +25,6 @@
     <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.min.css">
 
     <script src="core/js/jquery-3.2.1.min.js"></script>
-
 </head>
 
 <body>
@@ -53,11 +48,11 @@
             </div>
             <div class="form-group">
               <span class="form-icons"><i class="fa fa-user-o" aria-hidden="true"></i></span> 
-              <input type="text" name="firstname" placeholder="Firstname">
+              <input type="text" name="first" placeholder="Firstname">
             </div>
             <div class="form-group">
               <span class="form-icons"><i class="fa fa-user-o" aria-hidden="true"></i></span> 
-              <input type="text" name="lastname" placeholder="Lastname">
+              <input type="text" name="last" placeholder="Lastname">
             </div>
             <div class="form-group">
               <span class="form-icons"><i class="fa fa-envelope-o" aria-hidden="true"></i></span> 
@@ -69,7 +64,7 @@
             </div>
             <div class="form-group">
               <span class="form-icons"><i class="fa fa-lock" aria-hidden="true"></i></span>
-              <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password">
+              <input type="password" name="password2" id="cpassword" placeholder="Confirm Password">
             </div>
             <span class="user-agree">By clicking Sign up, you agree to ICYourWork's User Agreement, Privacy Policy, and Cookie Policy.
             </span>
@@ -100,3 +95,8 @@
  <script src="core/js/validation.js"></script>
 
 </html>
+<?php
+}else
+{
+  header("Location: index.php");
+}
